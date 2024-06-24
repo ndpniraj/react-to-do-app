@@ -4,6 +4,10 @@ import ToDoForm, { Data } from "./components/ToDoForm";
 const App: FC = () => {
   const [tasks, setTasks] = useState<Data[]>([]);
 
+  const myCustomTasks = tasks.map((item, index) => {
+    return <p key={index}>{item.title}</p>;
+  });
+
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <ToDoForm
@@ -11,7 +15,7 @@ const App: FC = () => {
           setTasks([...tasks, data]);
         }}
       />
-      <div>{JSON.stringify(tasks)}</div>
+      <div>{myCustomTasks}</div>
     </div>
   );
 };
