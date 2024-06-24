@@ -9,16 +9,27 @@ interface Props {
 const ToDoForm: FC<Props> = ({ onSubmit }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        setError("");
+
+        if (!title.trim() || !description.trim()) {
+          return setError("Please add some values");
+        }
+
         if (onSubmit) onSubmit({ title, description });
+
+        setTitle("");
+        setDescription("");
       }}
       className="space-y-6 p-3 rounded shadow-md bg-white w-96"
     >
       <h1 className="text-2xl text-center">ToDo Form</h1>
+      <p className="text-red-500">{error}</p>
       <div>
         <input
           name="title"

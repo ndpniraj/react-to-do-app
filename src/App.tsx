@@ -1,21 +1,22 @@
 import { FC, useState } from "react";
 import ToDoForm, { Data } from "./components/ToDoForm";
+import ToDoItem from "./components/ToDoItem";
 
 const App: FC = () => {
   const [tasks, setTasks] = useState<Data[]>([]);
 
   const myCustomTasks = tasks.map((item, index) => {
-    return <p key={index}>{item.title}</p>;
+    return <ToDoItem key={index} title={item.title} />;
   });
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen">
       <ToDoForm
         onSubmit={(data) => {
           setTasks([...tasks, data]);
         }}
       />
-      <div>{myCustomTasks}</div>
+      <div className="ml-6">{myCustomTasks}</div>
     </div>
   );
 };
