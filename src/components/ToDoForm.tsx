@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-type Data = { title: string; description: string };
+export type Data = { title: string; description: string };
 
 interface Props {
   onSubmit?(data: Data): void;
