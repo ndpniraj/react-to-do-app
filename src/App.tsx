@@ -6,7 +6,13 @@ const App: FC = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <form className="space-y-6 p-3 rounded shadow-md bg-white w-96">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log(title, description);
+        }}
+        className="space-y-6 p-3 rounded shadow-md bg-white w-96"
+      >
         <h1 className="text-2xl text-center">ToDo Form</h1>
         <div>
           <input
