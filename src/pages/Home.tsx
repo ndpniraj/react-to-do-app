@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { Link } from "react-router-dom";
 import ToDoForm, { Data } from "../components/ToDoForm";
 import ToDoItem from "../components/ToDoItem";
 
@@ -17,7 +18,11 @@ const Home: FC<Props> = () => {
       />
       <div className="ml-6">
         {tasks.map((item, index) => {
-          return <ToDoItem key={index} title={item.title} />;
+          return (
+            <Link key={index} to={`/${item.id}`}>
+              <ToDoItem title={item.title} />
+            </Link>
+          );
         })}
       </div>
     </div>
