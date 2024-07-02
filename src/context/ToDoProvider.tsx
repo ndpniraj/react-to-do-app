@@ -17,11 +17,20 @@ interface Props {
   children: ReactNode;
 }
 
+const TASKS = "tasks";
+
 const ToDoProvider: FC<Props> = ({ children }) => {
   const [tasks, setTasks] = useState<Data[]>([]);
 
   const updateTask = (task: Data) => {
-    setTasks([...tasks, task]);
+    // const newTasks = [...tasks, task];
+    // setTasks(newTasks);
+    // localStorage.setItem(TASKS, JSON.stringify(newTasks));
+    setTasks((oldData) => {
+      const newTasks = [...oldData, task];
+      localStorage.setItem(TASKS, JSON.stringify(newTasks));
+      return newTasks;
+    });
   };
 
   return (
