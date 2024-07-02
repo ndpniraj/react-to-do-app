@@ -1,4 +1,4 @@
-import { FC, ReactNode, useContext, useState } from "react";
+import { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 
 export type Data = { id: string | number; title: string; description: string };
@@ -32,6 +32,13 @@ const ToDoProvider: FC<Props> = ({ children }) => {
       return newTasks;
     });
   };
+
+  useEffect(() => {
+    const result = localStorage.getItem(TASKS);
+    if (result) {
+      setTasks(JSON.parse(result));
+    }
+  }, []);
 
   return (
     <ToDoContext.Provider value={{ tasks, updateTask }}>
