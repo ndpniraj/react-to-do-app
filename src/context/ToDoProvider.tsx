@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useContext, useState } from "react";
 import { createContext } from "react";
 
 export type Data = { id: string | number; title: string; description: string };
@@ -27,6 +27,10 @@ const ToDoProvider: FC<Props> = ({ children }) => {
   return (
     <ToDoContext.Provider value={{ tasks }}>{children}</ToDoContext.Provider>
   );
+};
+
+export const useTasks = () => {
+  return useContext(ToDoContext);
 };
 
 export default ToDoProvider;

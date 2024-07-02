@@ -1,14 +1,14 @@
-import { FC, useState, useContext } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import ToDoForm from "../components/ToDoForm";
 import ToDoItem from "../components/ToDoItem";
-import { Data, ToDoContext } from "../context/ToDoProvider";
+import { Data, useTasks } from "../context/ToDoProvider";
 
 interface Props {}
 
 const Home: FC<Props> = () => {
-  const context = useContext(ToDoContext);
-  console.log(context);
+  const context = useTasks();
+
   const [tasks, setTasks] = useState<Data[]>([]);
 
   return (
