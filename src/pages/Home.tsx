@@ -11,6 +11,7 @@ const Home: FC<Props> = () => {
     <div className="flex justify-center items-center h-screen">
       <ToDoForm
         onSubmit={(data) => {
+          console.log(data);
           setTasks([...tasks, data]);
         }}
       />

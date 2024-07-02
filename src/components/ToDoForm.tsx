@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-export type Data = { title: string; description: string };
+export type Data = { id: string | number; title: string; description: string };
 
 interface Props {
   onSubmit?(data: Data): void;
@@ -21,7 +21,7 @@ const ToDoForm: FC<Props> = ({ onSubmit }) => {
           return setError("Please add some values");
         }
 
-        if (onSubmit) onSubmit({ title, description });
+        if (onSubmit) onSubmit({ id: Date.now(), title, description });
 
         setTitle("");
         setDescription("");
