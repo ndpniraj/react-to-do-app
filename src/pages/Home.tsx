@@ -1,11 +1,14 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import ToDoForm, { Data } from "../components/ToDoForm";
+import ToDoForm from "../components/ToDoForm";
 import ToDoItem from "../components/ToDoItem";
+import { Data, ToDoContext } from "../context/ToDoProvider";
 
 interface Props {}
 
 const Home: FC<Props> = () => {
+  const context = useContext(ToDoContext);
+  console.log(context);
   const [tasks, setTasks] = useState<Data[]>([]);
 
   return (
@@ -17,7 +20,7 @@ const Home: FC<Props> = () => {
         }}
       />
       <div className="ml-6">
-        {tasks.map((item, index) => {
+        {context.tasks.map((item, index) => {
           return (
             <Link key={index} to={`/${item.id}`}>
               <ToDoItem title={item.title} />

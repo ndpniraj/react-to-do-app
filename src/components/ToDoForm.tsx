@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
-
-export type Data = { id: string | number; title: string; description: string };
+import { Data } from "../context/ToDoProvider";
 
 interface Props {
   onSubmit?(data: Data): void;
