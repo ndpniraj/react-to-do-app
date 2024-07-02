@@ -5,10 +5,12 @@ export type Data = { id: string | number; title: string; description: string };
 
 interface DefaultTasks {
   tasks: Data[];
+  updateTask(task: Data): void;
 }
 
 export const ToDoContext = createContext<DefaultTasks>({
   tasks: [],
+  updateTask() {},
 });
 
 interface Props {
@@ -16,16 +18,16 @@ interface Props {
 }
 
 const ToDoProvider: FC<Props> = ({ children }) => {
-  const [tasks, setTasks] = useState<Data[]>([
-    {
-      id: 1,
-      title: "This is task one.",
-      description: "This is what I want to do today",
-    },
-  ]);
+  const [tasks, setTasks] = useState<Data[]>([]);
+
+  const updateTask = (task: Data) => {
+    setTasks([...tasks, task]);
+  };
 
   return (
-    <ToDoContext.Provider value={{ tasks }}>{children}</ToDoContext.Provider>
+    <ToDoContext.Provider value={{ tasks, updateTask }}>
+      {children}
+    </ToDoContext.Provider>
   );
 };
 
