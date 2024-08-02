@@ -6,11 +6,13 @@ export type Data = { id: string | number; title: string; description: string };
 interface DefaultTasks {
   tasks: Data[];
   updateTask(task: Data): void;
+  removeTask(id: Data["id"]): void;
 }
 
 export const ToDoContext = createContext<DefaultTasks>({
   tasks: [],
   updateTask() {},
+  removeTask() {},
 });
 
 interface Props {
@@ -22,15 +24,25 @@ const TASKS = "tasks";
 const ToDoProvider: FC<Props> = ({ children }) => {
   const [tasks, setTasks] = useState<Data[]>([]);
 
+  const updateLS = (data: Data[]) => {
+    localStorage.setItem(TASKS, JSON.stringify(data));
+  };
+
   const updateTask = (task: Data) => {
     // const newTasks = [...tasks, task];
     // setTasks(newTasks);
     // localStorage.setItem(TASKS, JSON.stringify(newTasks));
     setTasks((oldData) => {
       const newTasks = [...oldData, task];
-      localStorage.setItem(TASKS, JSON.stringify(newTasks));
+      updateLS(newTasks);
       return newTasks;
     });
+  };
+
+  const removeTask = (id: Data["id"]) => {
+    const newTasks = tasks.filter((task) => task.id !== +id);
+    setTasks(newTasks);
+    updateLS(newTasks);
   };
 
   useEffect(() => {
@@ -41,7 +53,7 @@ const ToDoProvider: FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <ToDoContext.Provider value={{ tasks, updateTask }}>
+    <ToDoContext.Provider value={{ tasks, updateTask, removeTask }}>
       {children}
     </ToDoContext.Provider>
   );
